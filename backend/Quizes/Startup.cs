@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quizzes.Api.Models;
 
 namespace Quizzes.Api
 {
@@ -18,6 +20,17 @@ namespace Quizzes.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("Cors", builder =>
+            {
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+
+            }));
+
+            services.AddDbContext<QuizDbContext>(options => options.UseInMemoryDatabase("quiz"));
+
             services.AddControllers();
         }
 
@@ -28,6 +41,8 @@ namespace Quizzes.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("Cors");
 
             app.UseRouting();
 

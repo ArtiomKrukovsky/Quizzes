@@ -1,14 +1,41 @@
 <mat-card>
-  <mat-card-content>
 
-  </mat-card-content>
-  <form>
+  <mat-card-title>
+    <span *ngIf="question.id; else newQuestion">Edit Question</span>
+    <ng-template #newQuestion>
+      <span>New Question</span>
+    </ng-template>
+  </mat-card-title>
+  <mat-card-content>
+    <form>
       <mat-form-field class="example-full-width">
-          <mat-label>Question</mat-label>
-          <input [(ngModel)]="question" name="question" matInput placeholder="Enter your question">
+        <mat-label>Question</mat-label>
+        <input [(ngModel)]="question.text" name="question" matInput placeholder="Enter your question">
       </mat-form-field>
-  </form>
+      <mat-form-field class="example-full-width fullWidth">
+        <mat-label>Correct Anwser</mat-label>
+        <input [(ngModel)]="question.correctAnswer" name="correctAnswer" matInput placeholder="Correct Anwser">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width fullWidth">
+        <mat-label>Correct Anwser</mat-label>
+        <input [(ngModel)]="question.firstAnswer" name="firstAnswer" matInput placeholder="Wrong Anwser 1">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width fullWidth">
+        <mat-label>Correct Anwser</mat-label>
+        <input [(ngModel)]="question.secondAnswer" name="secondAnswer" matInput placeholder="Wrong Anwser 2">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width fullWidth">
+        <mat-label>Correct Anwser</mat-label>
+        <input [(ngModel)]="question.thirdAnswer" name="thirdAnswer" matInput placeholder="Wrong Anwser 3">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
   <mat-card-actions>
-      <button (click)="post(question)" mat-button>POST</button>
+    <button *ngIf="question.id" (click)="api.putQuestion(question)" mat-button>EDIT</button>
+    <button *ngIf="question.id" (click)="question = {}" mat-button>NEW</button>
+    <button *ngIf="!question.id" (click)="post(question)" mat-button>POST</button>
   </mat-card-actions>
 </mat-card>
