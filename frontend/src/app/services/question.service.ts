@@ -15,8 +15,8 @@ export class QuestionService {
       .subscribe((response) => console.log(response));
   }
 
-  getQuestions() {
-    return this.http.get('http://localhost:58655/api/questions');
+  getQuestions(quizId) {
+    return this.http.get(`http://localhost:58655/api/questions/${quizId}`);
   }
 
   putQuestion(question) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/app/utils/question';
 import { QuestionService } from 'src/app/services/question.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-questionList',
@@ -15,12 +16,15 @@ export class QuestionListComponent implements OnInit {
     firstAnswer: '',
     secondAnswer: '',
     thirdAnswer: '',
+
+    quizId: undefined,
   };
 
-  constructor(private api: QuestionService) {}
+  constructor(private api: QuestionService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.api.getQuestions().subscribe((response) => {
+    var quizId = this.route.snapshot.paramMap.get('quizId');
+    this.api.getQuestions(quizId).subscribe((response) => {
       this.questions = response as Question;
     });
   }

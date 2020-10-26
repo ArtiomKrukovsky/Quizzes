@@ -13,5 +13,7 @@
         public string SecondAnswer { get; set; }
 
         public string ThirdAnswer { get; set; }
+
+        public int QuizId { get; set; }
     }
 }

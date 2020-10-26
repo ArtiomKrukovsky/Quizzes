@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,12 @@ import { QuestionService } from './services/question.service';
 import { HomeComponent } from './components/home/home.component';
 import { NavComponent } from './components/nav/nav.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { QuizListComponent } from './components/quizList/quizList.component';
+import { QuizService } from './services/quiz.service';
+import { RegisterComponent } from './components/register/register.component';
+import { AuthService } from './services/auth.service';
+import { AuthInterceptor } from './api/auth.interceptor';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +34,9 @@ import { QuizComponent } from './components/quiz/quiz.component';
     HomeComponent,
     NavComponent,
     QuizComponent,
+    QuizListComponent,
+    RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,8 +50,18 @@ import { QuizComponent } from './components/quiz/quiz.component';
     HttpClientModule,
     MatListModule,
     MatToolbarModule,
+    ReactiveFormsModule,
   ],
-  providers: [QuestionService],
+  providers: [
+    QuestionService,
+    QuizService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

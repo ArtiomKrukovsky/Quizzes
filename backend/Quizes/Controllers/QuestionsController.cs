@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,12 +23,28 @@ namespace Quizzes.Api.Controllers
         {
             return await _context.Questions.ToListAsync();
         }
+        
+        [HttpGet("{quizId}")]
+        public async Task<IEnumerable<Question>> Get([FromRoute] int quizId)
+        {
+            return await _context.Questions.Where(q=> q.QuizId == quizId).ToListAsync();
+        }
 
         [HttpPost]
-        public async Task Post([FromBody] Question question)
+        public async Task<IActionResult> Post([FromBody] Question question)
         {
+            var quizId = question.QuizId;
+            var quiz = await _context.Quiz.SingleOrDefaultAsync(q => q.Id == quizId);
+
+            if (quiz == null)
+            {
+                return NotFound();
+            }
+
             await _context.Questions.AddAsync(question);
             await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpPut("{id}")]

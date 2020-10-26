@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from 'src/app/services/question.service';
 import { Question } from 'src/app/utils/question';
 
@@ -8,6 +9,7 @@ import { Question } from 'src/app/utils/question';
   styleUrls: ['./question.component.css'],
 })
 export class QuestionComponent implements OnInit {
+  quizId: number;
   question: Question = {
     id: undefined,
     text: '',
@@ -15,18 +17,21 @@ export class QuestionComponent implements OnInit {
     firstAnswer: '',
     secondAnswer: '',
     thirdAnswer: '',
+
+    quizId: undefined,
   };
 
-  constructor(private api: QuestionService) {}
+  constructor(private api: QuestionService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.quizId = Number(this.route.snapshot.paramMap.get('quizId'));
     this.api.questionSelected.subscribe(
       (question) => (this.question = question)
     );
   }
 
   post(question) {
-    console.log(question);
+    question.quizId = this.quizId;
     this.api.postQuestion(question);
   }
 }

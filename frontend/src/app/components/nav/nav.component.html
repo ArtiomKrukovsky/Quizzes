@@ -1,5 +1,10 @@
 <mat-toolbar>
-  <button mat-button routerLink="/">Quiz</button>
+  <button mat-button routerLink="/">Home</button>
   <button mat-button routerLink="/question">Question</button>
-  <button mat-button routerLink="/questions">Questions</button>
+  <button mat-button routerLink="/quiz">Quiz</button>
+
+  <span class="navDivide"></span>
+  <button *ngIf="!isAuthenticated" mat-button routerLink="/register">Register</button>
+  <button *ngIf="!isAuthenticated" mat-button routerLink="/login">Log in</button>
+  <button *ngIf="isAuthenticated" mat-button (click)="api.logout()">Logout</button>
 </mat-toolbar>
