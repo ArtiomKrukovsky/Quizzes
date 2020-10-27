@@ -10,6 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +28,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './api/auth.interceptor';
 import { LoginComponent } from './components/login/login.component';
+import { PlayComponent } from './components/play/play.component';
+import { PlayQuizComponent } from './components/playQuiz/playQuiz.component';
+import { FinishComponent } from './components/finish/finish.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +43,9 @@ import { LoginComponent } from './components/login/login.component';
     QuizListComponent,
     RegisterComponent,
     LoginComponent,
+    PlayComponent,
+    PlayQuizComponent,
+    FinishComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +60,9 @@ import { LoginComponent } from './components/login/login.component';
     MatListModule,
     MatToolbarModule,
     ReactiveFormsModule,
+    MatExpansionModule,
+    MatRadioModule,
+    MatDialogModule,
   ],
   providers: [
     QuestionService,

@@ -13,6 +13,10 @@ export class QuizService {
     return this.http.get('http://localhost:58655/api/quizzes');
   }
 
+  getAllQuizzes() {
+    return this.http.get('http://localhost:58655/api/quizzes/all');
+  }
+
   postQuiz(quiz) {
     this.http
       .post('http://localhost:58655/api/quizzes', quiz)

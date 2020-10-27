@@ -28,6 +28,12 @@ namespace Quizzes.Api.Controllers
             return quizzes;
         }
 
+        [HttpGet("all")]
+        public async Task<IEnumerable<Quiz>> GetAllQuizzes()
+        {
+            return await _context.Quiz.ToListAsync();
+        }
+
         [Authorize]
         [HttpPost]
         public async Task Post([FromBody] Quiz quiz)
